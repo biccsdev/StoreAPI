@@ -5,7 +5,7 @@ export class CostumersController {
   //Manage multiple parameters.
   @Get(':id')
   getCostumer(@Param('id') id: string) {
-    return `Costumer ${id}`;
+    return { customer: id };
   }
 
   @Get()
@@ -20,6 +20,6 @@ export class CostumersController {
 
   @Get('filter')
   getFilter() {
-    return 'This is a filter of Costumer';
+    return { message: 'This is a filter of Costumer' };
   }
 }

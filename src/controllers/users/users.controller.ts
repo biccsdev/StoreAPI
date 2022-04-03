@@ -4,7 +4,7 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 export class UsersController {
   @Get(':id')
   getUser(@Param('id') id: number) {
-    return `User #${id}`;
+    return { message: `User #${id}` };
   }
 
   @Get()
@@ -19,6 +19,6 @@ export class UsersController {
 
   @Get('filter')
   getFilter() {
-    return 'This is a filter of User';
+    return { message: 'This is a filter of User' };
   }
 }

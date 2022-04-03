@@ -2,11 +2,6 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 
 @Controller('orders')
 export class OrdersController {
-  @Get(':id')
-  getOrder(@Param('id') id: number) {
-    return `Order #${id}`;
-  }
-
   @Get()
   getOrders(@Query('total') total = 100) {
     const str = 'Order #';
@@ -19,6 +14,11 @@ export class OrdersController {
 
   @Get('filter')
   getFilter() {
-    return 'This is a filter of Order';
+    return { message: 'This is a filter of Orders' };
+  }
+
+  @Get(':id')
+  getOrder(@Param('id') id: number) {
+    return { order: id };
   }
 }
