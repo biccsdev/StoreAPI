@@ -1,72 +1,283 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# NestJS Store API
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This repository contains the code for a store API built with NestJS. This project was built for practicing my skills with Typescript and NestJS, I wanted to dig deeper into using NestJs CLI, writing my own Controller, Service and entity layers and connect to a database to manipulate data.
+
+The project solves the problem of managing the stock of products for any business by allowing them to create, update, delete and look up any product they want to keep track of. 
+
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Class Diagram](#UMLClassDiagram)
+- [Components Diagram](#UMLComponentsDiagram)
+- [APIs](#APIs)
+- [License](#License)
+
 
 ## Installation
+- Clone the repository
+- Navigate to the project's folder
+- Install dependencies: ```npm install```
+-  Run development ```npm run start```
+-  Run watch mode ```npm run start:dev```
 
-```bash
-$ npm install
+# UML Class Diagram
+
+![UMLCLASS](https://user-images.githubusercontent.com/86041666/236732328-39ee26fb-3dee-4973-8f03-11b3b54c9897.jpg)
+
+
+# UML Components Diagram
+
+![umlcomponent](https://user-images.githubusercontent.com/86041666/236732338-cc39a7da-26f9-4ac8-8501-81e5a28cc668.jpg)
+
+
+# APIs
+## Category Controller
+### POST /category
+Creates a new Category.
+
+Request Example:
+```
+POST /category
+```
+Body
+``` 
+{
+    "name": "exampleName",
+}
+```
+Response 
+
+``` 
+{
+    "id": "s0m3Exampl3Id",
+    "name": "exampleName"
+}  
+
 ```
 
-## Running the app
+### GET /category
+Returns all Categories.
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+Request Example:
+```
+GET /category
 ```
 
-## Test
+Response 
 
-```bash
-# unit tests
-$ npm run test
 
-# e2e tests
-$ npm run test:e2e
+``` 
+{
+    "id": "s0m3Exampl3Id",
+    "name": "exampleName"
+}  
 
-# test coverage
-$ npm run test:cov
 ```
 
-## Support
+### DELETE /category/:id
+Deletes a specific Category.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Request Example:
+```
+DELETE /category/s0m3Exampl3Id
+```
 
-## Stay in touch
+Response 
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+``` 
+{
+    "successfully deleted category 'exampleName'. "
+}  
+```
+## Product Controller
+### POST /product
+Creates a new Product.
+
+Request Example:
+```
+POST /product
+```
+Body
+``` 
+{
+    "name": "exampleName",
+    "category": "exampleCategory",
+    "stock": "123",
+    "barcode": "exampleCode",
+    "price": "examplePrice",
+}
+```
+Response 
+
+``` 
+{
+    "name": "exampleName",
+    "category": "exampleCategory",
+    "stock": "123",
+    "barcode": "exampleCode",
+    "price": "examplePrice",
+} 
+
+```
+
+### GET /product
+Returns all Products.
+
+Request Example:
+```
+GET /product
+```
+
+Response 
+
+
+``` 
+{
+    "id": "sjl43b4kv4",
+    "name": "exampleName",
+    "category": "exampleCategory",
+    "stock": "123",
+    "barcode": "exampleCode",
+    "price": "examplePrice",
+},
+{
+    "id": "232hb43k4h",
+    "name": "exampleName",
+    "category": "exampleCategory",
+    "stock": "123",
+    "barcode": "exampleCode",
+    "price": "examplePrice",
+} 
+.
+.
+.  
+
+```
+### GET /product/:value
+Gets a specific Product by its value.
+
+Request Example:
+```
+GET /product/exampleCode
+```
+
+Response 
+
+
+``` 
+{
+    "id": "sjl43b4kv4",
+    "name": "exampleName",
+    "category": "exampleCategory",
+    "stock": "123",
+    "barcode": "exampleCode",
+    "price": "examplePrice",
+}  
+```
+
+
+
+
+### DELETE /product/:id
+Deletes a specific Product.
+
+Request Example:
+```
+DELETE /product/sjl43b4kv4
+```
+
+Response 
+
+
+``` 
+{
+    "successfully deleted product 'exampleName'. "
+}  
+```
+
+## Sale Controller
+### POST /sale
+Creates a new Sale.
+
+Request Example:
+```
+POST /sale
+```
+Body
+``` 
+{
+    "items": [{...Product},{...Product}],
+    "total": "123.64",
+    "date": "22/12/23",
+}
+```
+Response 
+
+``` 
+{
+    "items": [{...Product},{...Product}],
+    "total": "123.64",
+    "date": "22/12/23",
+}
+
+```
+
+### GET /sale
+Returns all sales.
+
+Request Example:
+```
+GET /sale
+```
+
+Response 
+
+
+``` 
+{
+    "id": "343v34f3f",
+    "items": [{...Product},{...Product}],
+    "total": "12312.64",
+    "date": "12/12/23",
+},
+{
+    "id": "fj4h44hv",
+    "items": [{...Product},{...Product}],
+    "total": "123.64",
+    "date": "22/12/23",
+}
+.
+.
+.  
+
+```
+
+### DELETE /sale/:id
+Deletes a specific Sale.
+
+Request Example:
+```
+DELETE /sale/343v34f3f
+```
+
+Response 
+
+
+``` 
+{
+    "id": "343v34f3f",
+    "items": [{...Product},{...Product}],
+    "total": "12312.64",
+    "date": "12/12/23",
+}  
+```
+
+
+
+
 
 ## License
 
