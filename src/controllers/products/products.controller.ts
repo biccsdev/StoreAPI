@@ -17,7 +17,7 @@ import { Response } from 'express';
 import { ProductsService } from 'src/services/products/products.service';
 
 @Controller('products')
-export class ProductsController {
+export class SalesController {
   //Constructor that helps us with dependency injection, it
   // allows us to call product Service method from this file.
   constructor(private productsService: ProductsService) {}

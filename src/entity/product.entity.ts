@@ -1,8 +1,10 @@
+import { Category } from './category.entity';
+
 export class Product {
   id: number;
   name: string;
-  description: string;
+  barcode: string;
+  category: Category;
   price: number;
   stock: number;
-  image?: string;
 }
