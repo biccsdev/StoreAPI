@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Query } from '@nestjs/common';
 
 import { Product } from '../../entity/product.entity';
 import { Category, CategoryDocument } from 'src/entity/category.entity';
@@ -26,7 +26,13 @@ export class CategoriesService {
     return this.categoryModel.findOne(filter);
   }
 
-  async findById(id: string): Promise<CategoryDocument> {
+  async find(
+    @Query() query?: FilterQuery<CategoryDocument>,
+  ): Promise<CategoryDocument[]> {
+    return this.categoryModel.find(query);
+  }
+
+  async findById(id?: string): Promise<CategoryDocument> {
     return this.categoryModel.findById({ _id: new Types.ObjectId(id) });
   }
 

@@ -6,19 +6,20 @@ import { CategoriesController } from './controllers/categories/categories.contro
 import { SalesController } from './controllers/sales/sales.controller';
 import { ProductsService } from './services/products/products.service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ProductModule } from './modules/product.module';
+import { CategoriesModule } from './modules/categories.module';
+import { SalesModule } from './modules/sales.module';
 
 @Module({
   imports: [
     MongooseModule.forRoot(
       'mongodb+srv://biccs:Kondas123@cluster0.ihoyt.mongodb.net/storeAPI?retryWrites=true&w=majority',
     ),
+    ProductModule,
+    CategoriesModule,
+    SalesModule,
   ],
-  controllers: [
-    AppController,
-    ProductsController,
-    CategoriesController,
-    SalesController,
-  ],
-  providers: [AppService, ProductsService],
+
+  providers: [],
 })
 export class AppModule {}

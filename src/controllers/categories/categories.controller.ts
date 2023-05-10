@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParamData,
   Post,
   Query,
 } from '@nestjs/common';
@@ -27,10 +28,11 @@ export class CategoriesController {
     }
   }
 
-  @Get('/:id')
-  async findById(@Param() id: string): Promise<CategoryDocument> {
+  @Get()
+  async find(): Promise<CategoryDocument[]> {
     try {
-      const category = await this.categoriesService.findById(id);
+      const category = await this.categoriesService.find();
+      console.log(category);
       return category;
     } catch (error) {
       console.log(error);
