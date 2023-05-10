@@ -6,6 +6,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model, Types } from 'mongoose';
 import { CreateProductDTO } from 'src/dtos/createProduct.dto';
 import { CategoriesService } from '../categories/categories.service';
+import { query } from 'express';
 
 @Injectable()
 export class ProductsService {
@@ -35,6 +36,10 @@ export class ProductsService {
     @Query() query?: FilterQuery<ProductDocument>,
   ): Promise<ProductDocument[]> {
     return this.productModel.find(query);
+  }
+
+  async update(filter, update): Promise<Product> {
+    return await this.productModel.findOneAndUpdate(filter, update);
   }
 
   async delete(id: string): Promise<String> {
