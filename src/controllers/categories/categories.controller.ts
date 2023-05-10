@@ -1,25 +1,49 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
+import { CreateCategoryDTO } from 'src/dtos/createCategory.dto';
+import { CategoryDocument } from 'src/entity/category.entity';
+import { CategoriesService } from 'src/services/categories/categories.service';
 
 @Controller('categories')
 export class CategoriesController {
-  @Get()
-  getCategories(@Query('total') total = 100) {
-    const str = 'Category #';
-    const categories: string[] = [];
-    for (let i = 0; i < total; i++) {
-      categories.push(str + (i + 1));
+  constructor(private categoriesService: CategoriesService) {}
+
+  @Post()
+  async create(
+    @Body() createCategoryDto: CreateCategoryDTO,
+  ): Promise<CategoryDocument> {
+    try {
+      const category = await this.categoriesService.create(createCategoryDto);
+      return category;
+    } catch (error) {
+      console.log(error);
     }
-    return { categories };
   }
 
-  @Get('filter')
-  getFilter() {
-    return { message: 'This is a filter of Categories' };
+  @Get('/:id')
+  async findById(@Param() id: string): Promise<CategoryDocument> {
+    try {
+      const category = await this.categoriesService.findById(id);
+      return category;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  //Manage multiple parameters.
-  @Get(':id')
-  getCategory(@Param('id') id: string) {
-    return { category: id };
+  @Delete('/:id')
+  async delete(@Param() id: string): Promise<String> {
+    try {
+      const deletion = await this.categoriesService.delete(id);
+      return deletion;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

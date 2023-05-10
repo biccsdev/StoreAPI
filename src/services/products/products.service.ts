@@ -1,52 +1,45 @@
 //Create nest service component with: nest g s services/name
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, Query } from '@nestjs/common';
 
-import { Product } from '../../entity/product.entity';
+import { Product, ProductDocument } from '../../entity/product.entity';
+import { InjectModel } from '@nestjs/mongoose';
+import { FilterQuery, Model, Types } from 'mongoose';
+import { CreateProductDTO } from 'src/dtos/createProduct.dto';
+import { CategoriesService } from '../categories/categories.service';
 
 @Injectable()
 export class ProductsService {
-  private counterId = 0;
-  private products: Product[] = [
-    {
-      id: 1,
-      name: 'Product 1',
-      description: 'The best product',
-      price: 12,
-      stock: 55,
-    },
-  ];
+  constructor(
+    @InjectModel(Product.name) private productModel: Model<ProductDocument>,
+    private categoriesService: CategoriesService,
+  ) {}
 
-  findAll() {
-    return this.products;
-  }
-
-  findOne(id: number) {
-    return this.products.find((item) => item.id === id);
-  }
-
-  create(payload: any) {
-    this.counterId++;
-    const newProduct = {
-      id: this.counterId,
-      ...payload,
-    };
-    this.products.push(newProduct);
-    return newProduct;
-  }
-
-  update(payload: any) {
-    this.products.forEach((element) => {
-      element.id == payload.id
-        ? { ...element, ...payload } //Code on left merges two objects into one
-        : (element = element);
-    });
-    return this.findOne(payload.id);
-  }
-
-  delete(id: number) {
-    const index = this.products.indexOf(this.findOne(id));
-    if (index > -1) {
-      this.products.splice(index, 1); // 2nd parameter means remove one item only
+  async create(createProductDto: CreateProductDTO): Promise<ProductDocument> {
+    if (createProductDto) {
+      const categ = await this.categoriesService.findOne({
+        name: createProductDto.category,
+      });
+      return new this.productModel({ ...createProductDto, category: categ });
+    } else {
+      throw new BadRequestException('Product missing properties');
     }
+  }
+
+  // async findOne(
+  //   filter: FilterQuery<ProductDocument>,
+  // ): Promise<ProductDocument> {
+  //   return this.categoryModel.findOne(filter);
+  // }
+
+  async find(
+    @Query() query?: FilterQuery<ProductDocument>,
+  ): Promise<ProductDocument[]> {
+    return this.productModel.find(query);
+  }
+
+  async delete(id: string): Promise<String> {
+    return this.productModel.deleteOne({ _id: new Types.ObjectId(id) })
+      ? 'Succesfully deleted the Product'
+      : "Couldn't delete Product";
   }
 }

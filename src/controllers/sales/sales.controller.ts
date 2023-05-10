@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 
 @Controller('orders')
-export class OrdersController {
+export class SalesController {
   @Get()
   getOrders(@Query('total') total = 100) {
     const str = 'Order #';
