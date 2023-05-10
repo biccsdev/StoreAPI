@@ -16,7 +16,8 @@ export class CategoriesService {
     createCategoryDto: CreateCategoryDTO,
   ): Promise<CategoryDocument> {
     if (createCategoryDto) {
-      return new this.categoryModel(createCategoryDto);
+      const category = new this.categoryModel(createCategoryDto);
+      return category.save();
     }
   }
 

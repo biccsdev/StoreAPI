@@ -7,9 +7,9 @@ import { Sale, SaleSchema } from 'src/entity/sale.entity';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://biccs:Kondas123@cluster0.ihoyt.mongodb.net/storeAPI/sales?retryWrites=true&w=majority',
-    ),
+    // MongooseModule.forRoot(
+    //   'mongodb+srv://biccs:Kondas123@cluster0.ihoyt.mongodb.net/storeAPI/sales?retryWrites=true&w=majority',
+    // ),
     MongooseModule.forFeature([{ name: Sale.name, schema: SaleSchema }]),
     ProductModule,
   ],

@@ -20,7 +20,11 @@ export class ProductsService {
       const categ = await this.categoriesService.findOne({
         name: createProductDto.category,
       });
-      return new this.productModel({ ...createProductDto, category: categ });
+      const prod = new this.productModel({
+        ...createProductDto,
+        category: categ,
+      });
+      return prod.save();
     } else {
       throw new BadRequestException('Product missing properties');
     }

@@ -47,9 +47,9 @@ export class ProductsController {
   }
 
   @Get('/:barcode')
-  async findByBarcode(@Param() params: string): Promise<ProductDocument[]> {
+  async findByBarcode(@Param() params: any): Promise<ProductDocument[]> {
     try {
-      const category = await this.productsService.find({ barcode: params });
+      const category = await this.productsService.find(params);
       return category;
     } catch (error) {
       console.log(error);

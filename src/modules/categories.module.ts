@@ -8,9 +8,9 @@ import { SalesService } from 'src/services/sales/sales.service';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://biccs:Kondas123@cluster0.ihoyt.mongodb.net/storeAPI/categories?retryWrites=true&w=majority',
-    ),
+    // MongooseModule.forRoot(
+    //   'mongodb+srv://biccs:Kondas123@cluster0.ihoyt.mongodb.net/storeAPI/categories?retryWrites=true&w=majority',
+    // ),
     MongooseModule.forFeature([
       { name: Category.name, schema: CategorySchema },
     ]),
